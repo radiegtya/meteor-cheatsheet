@@ -137,6 +137,33 @@ edit html file "/client/scenes/post/index.html"
 ```
 use {{}} to call helpers, then your screen will print "Hello Ega Radiegtya"
 
+e. Template events
+
+for example adding events code in "/client/scenes/post/index.js"
+
+```javascript
+class PostIndex extends BlazeComponent{  
+  ...
+  
+  handleLike(e){
+    e.preventDefault();
+    console.log("Like btn pressed");
+  }
+  
+}
+...
+```
+
+html file "/client/scenes/post/index.html"
+
+```
+<template name="PostIndex">
+  ...
+  
+  <button onClick="{{handleLike}}">Like this post</button>
+</template>
+```
+there are another event like "onKeyup", "onKeydown", etc.
 
 For more info about using Blaze Component, follow this link:
 https://github.com/peerlibrary/meteor-blaze-components
