@@ -117,7 +117,7 @@ this way will print "Hello World" on your screen.
 d. Template helpers
 
 edit js file "/client/scenes/post/index.js"
-```
+```javascript
 class PostIndex extends BlazeComponent{  
   
    //this one called Template#helpers which can be passed to the html
