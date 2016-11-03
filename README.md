@@ -174,7 +174,7 @@ there are another event like "onKeyup", "onKeydown", etc.
 f. Template data
 
 example get current data inside each tag, or with tag, or data props in js helper
-```
+```javascript
 getCurrentDataAndModify(){
   //don't confuse! This is ES6 syntax similar to var firstData = this.currentData; var secondData = this.currentData();
   const {firstData, secondData} = this.currentData(); 
@@ -184,7 +184,7 @@ getCurrentDataAndModify(){
 
 example get current data in events
 
-```
+```javascript
 handleLike(e){
   e.preventDefault();
   const {_id, currentLike} = this.currentData();
@@ -196,7 +196,7 @@ handleLike(e){
 ```
 
 example get current data inside each tag, or with tag, or data props in js helper
-```
+```javascript
 getParentDataAndModify(){
   const {firstData, secondData} = this.data();
   return firstData + " - " + secondData;
