@@ -145,6 +145,10 @@ for example adding events code in "/client/scenes/post/index.js"
 class PostIndex extends BlazeComponent{  
   ...
   
+  post(){
+    return Post.findOne({title: "Jordan the Bad Boy"});
+  }
+  
   handleLike(e){
     e.preventDefault();
     console.log("Like btn pressed");
@@ -159,11 +163,45 @@ html file "/client/scenes/post/index.html"
 ```
 <template name="PostIndex">
   ...
-  
-  <button onClick="{{handleLike}}">Like this post</button>
+  {{#with post}}
+    {{title}}
+    <button onClick="{{handleLike}}">Like this post</button>
+   {{/with}} 
 </template>
 ```
 there are another event like "onKeyup", "onKeydown", etc.
+
+f. Template data
+
+example get current data inside each tag, or with tag, or data props in js helper
+```
+getCurrentDataAndModify(){
+  //don't confuse! This is ES6 syntax similar to var firstData = this.currentData; var secondData = this.currentData();
+  const {firstData, secondData} = this.currentData(); 
+  return firstData + secondData;
+} 
+```
+
+example get current data in events
+
+```
+handleLike(e){
+  e.preventDefault();
+  const {_id, currentLike} = this.currentData();
+  
+  Post.update(_id, {$set: {
+    currentLike: currentLike + 1,
+  }});
+}
+```
+
+example get current data inside each tag, or with tag, or data props in js helper
+```
+getParentDataAndModify(){
+  const {firstData, secondData} = this.data();
+  return firstData + " - " + secondData;
+} 
+```
 
 For more info about using Blaze Component, follow this link:
 https://github.com/peerlibrary/meteor-blaze-components
@@ -250,5 +288,36 @@ PostIndex extends BlazeComponent{
 ```
 
 Complete Doc COMING SOON. For now refer to this link https://atmospherejs.com/reywood/publish-composite
+
+## 7. Reactive Variable
+
+Reactive variable is a variable which changed automatically when emitted or there is an event that trigger it to change. Never use Meteor.session!!! Use Meteor Reactive Var insted.
+
+```
+meteor add reactive-var
+```
+
+simple example:
+```javascript
+//init limit
+let limit = new ReactiveVar(5);
+
+//set limit value reactively
+limit.set(15);
+
+//get limit value reactively on template lifeCycle like onCreated, onRendered etc
+this.autorun(()=>{
+  //pass the value to this.limit inside Tracker.autorun
+  this.limit = limit.get();
+});
+
+//get limit value reactively on template helper
+iAmTemplateHelperToGetLimit(){
+  return limit.get(); //you don't need to use Tracker.autorun in template helpers
+}
+
+```
+
+Complete Doc COMING SOON. For now refer to this link https://docs.meteor.com/api/reactive-var.html
 
 
