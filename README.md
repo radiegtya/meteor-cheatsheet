@@ -225,7 +225,7 @@ Meteor.publishComposite('post', function(selector, options) {
 Client Example, for template level subscriptions:
 
 on template component subscribe needed data:
-```
+```javascript
 
 PostIndex extends BlazeComponent{
 
