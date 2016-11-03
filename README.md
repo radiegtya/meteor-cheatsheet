@@ -167,3 +167,88 @@ there are another event like "onKeyup", "onKeydown", etc.
 
 For more info about using Blaze Component, follow this link:
 https://github.com/peerlibrary/meteor-blaze-components
+
+
+## 3. Flow Router
+
+Use this router package for production ready routing.
+```
+meteor add kadira:flow-router
+```
+Complete Doc COMING SOON. For now refer to this link https://github.com/kadirahq/flow-router
+
+## 4. MongoDB Schema with Collection2
+
+Use this package to scheming your mongoDB, field validation, etc.
+```
+meteor add aldeed:collection2
+
+and this will automatically add:
+meteor add aldeed:simple-schema
+```
+Complete Doc COMING SOON. For now refer to this link https://github.com/aldeed/meteor-collection2
+
+## 5. Form
+
+Use this package to make cool form with validation inside
+
+```
+meteor add aldeed:autoform
+```
+
+Complete Doc COMING SOON. For now refer to this link https://github.com/aldeed/meteor-autoform
+
+## 6. Publish & Subscribe Best Practice with Publish Composite
+
+```
+meteor add reywood:publish-composite
+```
+
+Server Example:
+```javascript
+Meteor.publishComposite('post', function(selector, options) {
+    return {
+        find: function() {
+            // Find posts with selector and options passed from client
+            return Post.find(selector, options);
+        },
+        children: [
+            find: function(collection) {
+                // Find comment relation (HAS MANY COMMENT)
+                return Collection.find({postId: collection._id});
+            }
+        ]
+    }
+});
+```
+
+Client Example, for template level subscriptions:
+
+on template component subscribe needed data:
+```
+
+PostIndex extends BlazeComponent{
+
+  onCreated(){
+    this.autorun(()=>{
+      this.subscribe('post', this.selector(), this.options());
+    });
+  }
+  
+  //your query goes here
+  selector(){
+    return {title: {$regex: "abc", $options: "i"}};
+  }
+  
+  //your options like limit, and sort goes here
+  options(){
+    return {limit: 10, sort: {title: -1}};
+  }
+
+}
+
+```
+
+Complete Doc COMING SOON. For now refer to this link https://atmospherejs.com/reywood/publish-composite
+
+
